@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package grocerymanagement;
+import Connector.ConnectionProvider;
+import com.mysql.cj.protocol.Resultset;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.*;
@@ -44,6 +46,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 0, 2, new java.awt.Color(255, 0, 0)));
@@ -72,6 +75,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
+        jComboBox1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -197,16 +201,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 380));
 
         pack();
         setLocationRelativeTo(null);
@@ -221,35 +216,26 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void login_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_BtnActionPerformed
-        // TODO add your handling code here:
-        
-        Connection con=null;
         try {
             String username = textField1.getText();
             String password = String.valueOf(textField2.getPassword());
-            PreparedStatement pst;
-           Class.forName("com.mysql.jdbc.Driver");
-           con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocery","root","admin");
-           pst = con.prepareStatement("select * from adminlogin where username=? and password=?;");
-//            if(username.equals("jitendra") && password.equals("12345")) { 
-           pst.setString(1, username);
-           pst.setString(2, password);
+            
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from adminlogin where username='"+username+"' and password='"+password+"'");
            
-           ResultSet r = pst.executeQuery();
-           if(r.next()) {
-                Products prod = new Products();
-                prod.setVisible(true);
+            if(rs.next()) {
                 JOptionPane.showMessageDialog(null, "Logged In successfully");
+                setVisible(false);
+                new Products().setVisible(true);
                 System.out.print("logged in");
             }
             else {
                 JOptionPane.showMessageDialog(null,"Invalid username or password");
             }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
         }
         
     }//GEN-LAST:event_login_BtnActionPerformed
