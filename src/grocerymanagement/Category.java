@@ -8,6 +8,7 @@ package grocerymanagement;
 import Connector.ConnectionProvider;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -75,9 +76,9 @@ public class Category extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         catTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        productsPage = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        supplierPage = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -122,12 +123,27 @@ public class Category extends javax.swing.JFrame {
 
         addBtn.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         addBtn.setText("ADD");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         deleteBtn.setText("DELETE");
+        deleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteBtnMouseClicked(evt);
+            }
+        });
 
         editBtn.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         editBtn.setText("EDIT");
+        editBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editBtnMouseClicked(evt);
+            }
+        });
 
         clearBtn.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         clearBtn.setText("CLEAR");
@@ -161,6 +177,11 @@ public class Category extends javax.swing.JFrame {
         });
         catTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         catTable.setSurrendersFocusOnKeystroke(true);
+        catTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                catTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(catTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -242,69 +263,67 @@ public class Category extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(0, 0, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel7.setFont(new java.awt.Font("Arial Black", 1, 20)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel7.setText("PRODUCTS");
+        productsPage.setFont(new java.awt.Font("Arial Black", 1, 20)); // NOI18N
+        productsPage.setForeground(new java.awt.Color(255, 51, 0));
+        productsPage.setText("   PRODUCTS");
+        productsPage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productsPageMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel7)
-                .addContainerGap(34, Short.MAX_VALUE))
+            .addComponent(productsPage, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addContainerGap())
+            .addComponent(productsPage, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
         );
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 153));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel8.setFont(new java.awt.Font("Arial Black", 1, 20)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel8.setText("SUPPLIER");
+        supplierPage.setFont(new java.awt.Font("Arial Black", 1, 20)); // NOI18N
+        supplierPage.setForeground(new java.awt.Color(255, 51, 0));
+        supplierPage.setText("    SUPPLIER");
+        supplierPage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                supplierPageMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(supplierPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(supplierPage, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 0, 0));
-
-        jLabel9.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("X");
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Exit_Btn.jpg"))); // NOI18N
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(23, 23, 23))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel9))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 20)); // NOI18N
@@ -342,7 +361,7 @@ public class Category extends javax.swing.JFrame {
                 .addGap(54, 54, 54))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -359,6 +378,94 @@ public class Category extends javax.swing.JFrame {
     private void clearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearBtnMouseClicked
         clear();
     }//GEN-LAST:event_clearBtnMouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        String cid = tf1.getText();
+        String cname = tf2.getText();
+        String cdesc = tf3.getText();
+        
+        try {
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            st.executeUpdate("insert into categories values('"+cid+"','"+cname+"','"+cdesc+"');");
+            JOptionPane.showMessageDialog(null,"items added successfully");
+            con.close();
+            showData();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
+        if (tf1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Enter category to be deleted");
+        }
+        else {
+            try {
+                Connection con = ConnectionProvider.getCon();
+                String cid = tf1.getText();
+                String query = "delete from categories where cid = "+cid+";";
+                Statement st = con.createStatement();
+                st.executeUpdate(query);
+                clear();
+                showData();
+                JOptionPane.showMessageDialog(null,"category deleted");
+                
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_deleteBtnMouseClicked
+
+    private void catTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_catTableMouseClicked
+        DefaultTableModel model = (DefaultTableModel) catTable.getModel();
+        int myIndex = catTable.getSelectedRow();
+        tf1.setText(model.getValueAt(myIndex,0).toString());
+        tf2.setText(model.getValueAt(myIndex,1).toString());
+        tf3.setText(model.getValueAt(myIndex,2).toString());
+    }//GEN-LAST:event_catTableMouseClicked
+
+    private void editBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editBtnMouseClicked
+        if(tf2.getText().isEmpty() || tf3.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Missing some Info");
+        }
+        else {
+            try {
+                Connection con = ConnectionProvider.getCon();
+                String query = "update categories set cname="+tf2.getText()+",description="+tf3.getText()+" where cid = "+Integer.parseInt(tf1.getText())+";";
+                Statement st = con.createStatement();
+                st.executeUpdate(query);
+                showData();
+                JOptionPane.showMessageDialog(this,"Category updated");
+            }
+            catch(SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this,e);
+            }
+        }                           
+    }//GEN-LAST:event_editBtnMouseClicked
+
+    private void productsPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsPageMouseClicked
+        Products prod = new Products();
+        prod.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_productsPageMouseClicked
+
+    private void supplierPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supplierPageMouseClicked
+        Supplier sp = new Supplier();
+        sp.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_supplierPageMouseClicked
 
     /**
      * @param args the command line arguments
@@ -407,8 +514,6 @@ public class Category extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -417,6 +522,8 @@ public class Category extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel productsPage;
+    private javax.swing.JLabel supplierPage;
     private javax.swing.JTextField tf1;
     private javax.swing.JTextField tf2;
     private javax.swing.JTextArea tf3;
