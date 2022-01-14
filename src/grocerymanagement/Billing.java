@@ -23,8 +23,25 @@ public class Billing extends javax.swing.JFrame {
         tf4.setEditable(false);
         tf5.setEditable(false);
         tf6.setEditable(false);
+        printBill();
     }
     
+    public void printBill(){
+        billGenerated.setText("\t\tGROCERY MGMT SYSTEM\t\t\n"
+                        +"\t\t11'TH MAIN, BANGALORE\n"
+                        +"\t\tPIN: 560071\n"
+                        +"\t\tPHONE: 080-1234567"
+                        +"\n========================================================\n"+
+                        "BILL NO.\n"+"Customer Name\n"+"Phone Number\n"+"Purchase Date\n\n"
+                        +"===========================================================\n"
+                        +"NUM     PRODUCT     PRICE       QUANTITY        TOTAL"
+                        +"\n==================================================================\n");
+        purchased();
+        
+        billGenerated.append("\n================================================="
+                        +"\ntotal: "
+                        +"\n=====================================================");
+    }
     
     
     public void clear() {
@@ -49,6 +66,27 @@ public class Billing extends javax.swing.JFrame {
         }
         catch(Exception e) {
             JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void purchased() {
+        int i=0;
+        int tot=0;
+        int summ=0;
+        if (tf5.getText().isEmpty()|| tf6.getText().isEmpty()|| tf7.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Missing Information");
+        }
+        else {
+            i++;
+            summ= summ+Integer.valueOf(tf6.getText()) *(Integer.valueOf(tf7.getText()));
+            
+            if (i==1) {
+                billGenerated.append(" "+i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
+            }
+            else {
+                billGenerated.append( +i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
+            }
+            
         }
     }
     
@@ -134,7 +172,7 @@ public class Billing extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Filter By:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 70, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 70, 20));
 
         tf6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel1.add(tf6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 148, -1));
@@ -174,7 +212,7 @@ public class Billing extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(billTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 510, 160));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 510, 160));
 
         jPanel2.setBackground(new java.awt.Color(23, 35, 51));
 
@@ -209,7 +247,7 @@ public class Billing extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 0, 0));
         jLabel11.setText("MANAGE BILL");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
 
         addBtn.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         addBtn.setText("ADD To Bill");
@@ -278,13 +316,14 @@ public class Billing extends javax.swing.JFrame {
                 categorygBoxActionPerformed(evt);
             }
         });
-        jPanel1.add(categorygBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 150, -1));
+        jPanel1.add(categorygBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 150, -1));
 
         billGenerated.setColumns(20);
+        billGenerated.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         billGenerated.setRows(5);
         jScrollPane2.setViewportView(billGenerated);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, 570, 360));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, 570, 390));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Bill No");
@@ -333,26 +372,11 @@ public class Billing extends javax.swing.JFrame {
     private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
         System.exit(0);
     }//GEN-LAST:event_closeBtnMouseClicked
-int i=0;
-int tot=0;
+
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        int summ=0;
-        if (tf5.getText().isEmpty()|| tf6.getText().isEmpty()|| tf7.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Missing Information");
-        }
-        else {
-            i++;
-            summ= summ+Integer.valueOf(tf6.getText()) *(Integer.valueOf(tf7.getText()));
-            if (i==1) {
-                billGenerated.setText(billGenerated.getText()+"---------------GROCERY MGMT SYSTEM---------------\n"
-                +"NUM     PRODUCT     PRICE       QUANTITY        TOTAL\n"+i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
-                
-            }
-            else {
-                billGenerated.setText(billGenerated.getText() +i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
-                
-            }
-        }
+        purchased();
+        
+
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void categorygBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categorygBoxActionPerformed
@@ -372,9 +396,6 @@ int tot=0;
         }
     }//GEN-LAST:event_jButton6MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
