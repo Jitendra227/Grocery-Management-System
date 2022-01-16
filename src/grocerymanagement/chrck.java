@@ -156,8 +156,10 @@ public class BillPrintable implements Printable {
             
                 
             g2d.setFont(new Font("Monospaced",Font.PLAIN,9));
-            g2d.drawImage(icon.getImage(), 50, 20, 90, 30, rootPane);y+=yShift+30;
-            g2d.drawString("-------------------------------------",12,y);y+=yShift;
+            g2d.drawImage(icon.getImage(), 50, 20, 90, 30, rootPane);
+            y+=yShift+30;
+            g2d.drawString("-------------------------------------",12,y);
+            y+=yShift;
             g2d.drawString("         CodeGuid.com        ",12,y);y+=yShift;
             g2d.drawString("   No 00000 Address Line One ",12,y);y+=yShift;
             g2d.drawString("   Address Line 02 SRI LANKA ",12,y);y+=yShift;

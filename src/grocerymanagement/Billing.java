@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package grocerymanagement;
 import Connector.ConnectionProvider;
 import java.sql.*;
 import java.sql.Connection;
 import java.text.MessageFormat;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,33 +13,46 @@ import javax.swing.table.DefaultTableModel;
  * @author jitendra mishra
  */
 public class Billing extends javax.swing.JFrame {
+    
 
+    String bid,cname,cphone;
     public Billing() {
         initComponents();
         comboData();
         tf4.setEditable(false);
         tf5.setEditable(false);
         tf6.setEditable(false);
-        printBill();
-    }
-    
-    public void printBill(){
-        billGenerated.setText("\t\tGROCERY MGMT SYSTEM\t\t\n"
-                        +"\t\t11'TH MAIN, BANGALORE\n"
-                        +"\t\tPIN: 560071\n"
-                        +"\t\tPHONE: 080-1234567"
-                        +"\n========================================================\n"+
-                        "BILL NO.\n"+"Customer Name\n"+"Phone Number\n"+"Purchase Date\n\n"
-                        +"===========================================================\n"
-                        +"NUM     PRODUCT     PRICE       QUANTITY        TOTAL"
-                        +"\n==================================================================\n");
-        purchased();
+        billGenerated.setEditable(false);
+        billHeader();
         
-        billGenerated.append("\n================================================="
-                        +"\ntotal: "
-                        +"\n=====================================================");
+ 
     }
     
+    public void billHeader(){
+        JTextField jtf1 = new JTextField();
+        JTextField jtf2 = new JTextField();
+        JTextField jtf3 = new JTextField();
+        Object[] message = {"Enter Bill No.:",jtf1,
+                            "Enter Customer Name:", jtf2,
+                            "Enter Customer Phone No.:", jtf3};
+        
+        int option = JOptionPane.showConfirmDialog(this, message, "Enter all your values", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION)
+        {
+           bid = jtf1.getText();
+           cname = jtf2.getText();
+           cphone = jtf3.getText();
+        }
+        billGenerated.setText("\n\t\t\tGROCERY MGMT SYSTEM\t\t\n"
+                        +"\t\t\t11'TH MAIN, BANGALORE\n"
+                        +"\t\t\tPIN: 560071\n"
+                        +"\t\t\tPHONE: 080-1234567"
+                        +"\n  ==============================================================\n"+
+                        "  BILL NO.        : "+bid+"\n"+"  Customer Name  : "+cname+"\n"+"  Phone Number  :"+cphone+"\n"+"  Purchase Date\n"
+                        +"  ===============================================================\n"
+                        +"  NUM     PRODUCT     PRICE       QUANTITY        TOTAL"
+                        +"\n  ===============================================================\n");
+    }
     
     public void clear() {
         tf1.setText("");
@@ -68,28 +78,7 @@ public class Billing extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    public void purchased() {
-        int i=0;
-        int tot=0;
-        int summ=0;
-        if (tf5.getText().isEmpty()|| tf6.getText().isEmpty()|| tf7.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Missing Information");
-        }
-        else {
-            i++;
-            summ= summ+Integer.valueOf(tf6.getText()) *(Integer.valueOf(tf7.getText()));
-            
-            if (i==1) {
-                billGenerated.append(" "+i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
-            }
-            else {
-                billGenerated.append( +i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
-            }
-            
-        }
-    }
-    
+        
     public void showData() {
         try {
             DefaultTableModel model = (DefaultTableModel) billTable.getModel();
@@ -152,6 +141,11 @@ public class Billing extends javax.swing.JFrame {
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1045, 710));
         setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 51));
@@ -372,9 +366,45 @@ public class Billing extends javax.swing.JFrame {
     private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
         System.exit(0);
     }//GEN-LAST:event_closeBtnMouseClicked
-
+int i=0;
+int tot=0;
+int summ=0;
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        purchased();
+        String bid = tf1.getText();
+        String cname = tf2.getText();
+        String cphone = tf3.getText();
+//        String pid = tf4.getText();
+//        String pname = tf5.getText();
+//        String price = tf6.getText();
+//        String qty = tf7.getText();
+        
+        if (bid.isEmpty()|| cname.isEmpty()|| cphone.isEmpty()){
+            JOptionPane.showMessageDialog(this,"ADD BILL ID and Customer Details: ",null, JOptionPane.WARNING_MESSAGE);
+            try {
+                Connection con = ConnectionProvider.getCon();
+                Statement st = con.createStatement();
+                String query = "insert into Billing values('"+Integer.parseInt(bid)+"','"+cname+"','"+Integer.parseInt(cphone)+"');";
+                st.executeUpdate(query);
+                con.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e);
+        }
+        }
+        else{
+            i++;
+            summ= summ+Integer.valueOf(tf6.getText()) *(Integer.valueOf(tf7.getText()));
+
+            if (i==1) {
+                billGenerated.setText(billGenerated.getText()+"   "+i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
+            }
+            else {
+                billGenerated.setText(billGenerated.getText()+"   "+i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
+            }
+        }
+        
+//        
         
 
     }//GEN-LAST:event_addBtnActionPerformed
@@ -388,13 +418,33 @@ public class Billing extends javax.swing.JFrame {
     }//GEN-LAST:event_tf4ActionPerformed
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
-        try{
-            billGenerated.print();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+ try {
+     billGenerated.setText(billGenerated.getText()+"\n================================================="
+            +"\ntotal: "
+            +"\n=====================================================\n");
+//        billGenerated.print();
+    } 
+ catch (Exception e) {
+     e.printStackTrace();
+}
     }//GEN-LAST:event_jButton6MouseClicked
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        JTextField jtf1 = new JTextField();
+        JTextField jtf2 = new JTextField();
+        JTextField jtf3 = new JTextField();
+        Object[] message = {"Enter Bill No.:",jtf1,
+                            "Enter Customer Name:", jtf2,
+                            "Enter Customer Phone No.:", jtf3};
+        
+        int option = JOptionPane.showConfirmDialog(this, message, "Enter all your values", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION)
+        {
+           bid = jtf1.getText();
+           cname = jtf2.getText();
+           cphone = jtf3.getText();
+        }
+    }//GEN-LAST:event_formComponentShown
 
     public static void main(String args[]) {
         try {
