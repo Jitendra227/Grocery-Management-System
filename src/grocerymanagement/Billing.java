@@ -8,12 +8,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author jitendra mishra
- */
+
 public class Billing extends javax.swing.JFrame {
-    
 
     String bid,cname,cphone;
     public Billing() {
@@ -24,25 +20,9 @@ public class Billing extends javax.swing.JFrame {
         tf6.setEditable(false);
         billGenerated.setEditable(false);
         billHeader();
-        
- 
     }
     
     public void billHeader(){
-        JTextField jtf1 = new JTextField();
-        JTextField jtf2 = new JTextField();
-        JTextField jtf3 = new JTextField();
-        Object[] message = {"Enter Bill No.:",jtf1,
-                            "Enter Customer Name:", jtf2,
-                            "Enter Customer Phone No.:", jtf3};
-        
-        int option = JOptionPane.showConfirmDialog(this, message, "Enter all your values", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION)
-        {
-           bid = jtf1.getText();
-           cname = jtf2.getText();
-           cphone = jtf3.getText();
-        }
         billGenerated.setText("\n\t\t\tGROCERY MGMT SYSTEM\t\t\n"
                         +"\t\t\t11'TH MAIN, BANGALORE\n"
                         +"\t\t\tPIN: 560071\n"
@@ -50,7 +30,7 @@ public class Billing extends javax.swing.JFrame {
                         +"\n  ==============================================================\n"+
                         "  BILL NO.        : "+bid+"\n"+"  Customer Name  : "+cname+"\n"+"  Phone Number  :"+cphone+"\n"+"  Purchase Date\n"
                         +"  ===============================================================\n"
-                        +"  NUM     PRODUCT     PRICE       QUANTITY        TOTAL"
+                        +"  NUM   PRODUCT \t PRICE       QUANTITY        TOTAL"
                         +"\n  ===============================================================\n");
     }
     
@@ -135,6 +115,7 @@ public class Billing extends javax.swing.JFrame {
         tf2 = new javax.swing.JTextField();
         tf5 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        submitBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1020, 720));
@@ -162,7 +143,7 @@ public class Billing extends javax.swing.JFrame {
                 tf1ActionPerformed(evt);
             }
         });
-        jPanel1.add(tf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 150, -1));
+        jPanel1.add(tf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 150, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Filter By:");
@@ -298,13 +279,14 @@ public class Billing extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setText("Customer Phone");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         tf3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(tf3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 150, -1));
+        jPanel1.add(tf3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 150, -1));
 
         categorygBox.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         categorygBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        categorygBox.setToolTipText("");
         categorygBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 categorygBoxActionPerformed(evt);
@@ -315,13 +297,14 @@ public class Billing extends javax.swing.JFrame {
         billGenerated.setColumns(20);
         billGenerated.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         billGenerated.setRows(5);
+        billGenerated.setWrapStyleWord(true);
         jScrollPane2.setViewportView(billGenerated);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, 570, 390));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Bill No");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 50, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 50, 20));
 
         tf4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tf4.addActionListener(new java.awt.event.ActionListener() {
@@ -333,10 +316,10 @@ public class Billing extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Customer Name");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, 20));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, 20));
 
         tf2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(tf2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 150, -1));
+        jPanel1.add(tf2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 150, -1));
 
         tf5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel1.add(tf5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 148, -1));
@@ -344,6 +327,15 @@ public class Billing extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("Product Name");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, 20));
+
+        submitBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        submitBtn.setText("SUBMIT");
+        submitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 140, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 720));
 
@@ -373,44 +365,27 @@ int summ=0;
         String bid = tf1.getText();
         String cname = tf2.getText();
         String cphone = tf3.getText();
-//        String pid = tf4.getText();
-//        String pname = tf5.getText();
-//        String price = tf6.getText();
-//        String qty = tf7.getText();
         
         if (bid.isEmpty()|| cname.isEmpty()|| cphone.isEmpty()){
             JOptionPane.showMessageDialog(this,"ADD BILL ID and Customer Details: ",null, JOptionPane.WARNING_MESSAGE);
-            try {
-                Connection con = ConnectionProvider.getCon();
-                Statement st = con.createStatement();
-                String query = "insert into Billing values('"+Integer.parseInt(bid)+"','"+cname+"','"+Integer.parseInt(cphone)+"');";
-                st.executeUpdate(query);
-                con.close();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e);
-        }
+           
         }
         else{
             i++;
             summ= summ+Integer.valueOf(tf6.getText()) *(Integer.valueOf(tf7.getText()));
+            tot+=summ;
 
             if (i==1) {
-                billGenerated.setText(billGenerated.getText()+"   "+i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
+                billGenerated.setText(billGenerated.getText()+"   "+i+"    "+tf5.getText()+"    \t"+tf6.getText()+" \t\t"+tf7.getText()+" \t\t"+summ+"\n");
             }
             else {
-                billGenerated.setText(billGenerated.getText()+"   "+i+"      "+tf5.getText()+"       "+tf6.getText()+"       "+tf7.getText()+"       "+summ+"\n");
+                billGenerated.setText(billGenerated.getText()+"   "+i+"    "+tf5.getText()+"    \t"+tf6.getText()+" \t\t"+tf7.getText()+" \t\t"+summ+"\n");
             }
         }
-        
-//        
-        
-
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void categorygBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categorygBoxActionPerformed
-     showData();
+        showData();
     }//GEN-LAST:event_categorygBoxActionPerformed
 
     private void tf4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf4ActionPerformed
@@ -419,10 +394,12 @@ int summ=0;
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
  try {
-     billGenerated.setText(billGenerated.getText()+"\n================================================="
-            +"\ntotal: "
-            +"\n=====================================================\n");
-//        billGenerated.print();
+     billGenerated.setText(billGenerated.getText()
+            +"\n  =============================================================="
+            +"\n  total:     \t\t\t\t\t\t"+tot+""
+            +"\n  ==============================================================\n");
+    billGenerated.print();
+    
     } 
  catch (Exception e) {
      e.printStackTrace();
@@ -430,21 +407,30 @@ int summ=0;
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        JTextField jtf1 = new JTextField();
-        JTextField jtf2 = new JTextField();
-        JTextField jtf3 = new JTextField();
-        Object[] message = {"Enter Bill No.:",jtf1,
-                            "Enter Customer Name:", jtf2,
-                            "Enter Customer Phone No.:", jtf3};
         
-        int option = JOptionPane.showConfirmDialog(this, message, "Enter all your values", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION)
-        {
-           bid = jtf1.getText();
-           cname = jtf2.getText();
-           cphone = jtf3.getText();
-        }
     }//GEN-LAST:event_formComponentShown
+
+    private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
+        bid = tf1.getText();
+        cname = tf2.getText();
+        cphone = tf3.getText();
+        
+        try {
+                Connection con = ConnectionProvider.getCon();
+                Statement st = con.createStatement();
+                String query = "insert into Billing values('"+Integer.parseInt(bid)+"','"+cname+"','"+Integer.parseInt(cphone)+"');";
+                st.executeUpdate(query);
+                con.close();
+                billHeader();
+                tf1.setEditable(false);
+                tf2.setEditable(false);
+                tf3.setEditable(false);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_submitBtnActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -497,6 +483,7 @@ int summ=0;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton submitBtn;
     private javax.swing.JTextField tf1;
     private javax.swing.JTextField tf2;
     private javax.swing.JTextField tf3;
