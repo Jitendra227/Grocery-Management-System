@@ -19,9 +19,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Employee extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Employee
-     */
     public Employee() {
         initComponents();
         showData();
@@ -36,7 +33,7 @@ public void clear() {
     }
     public void showData() {
         try {
-            DefaultTableModel model = (DefaultTableModel) SupplierTable.getModel();
+            DefaultTableModel model = (DefaultTableModel) EmployeeTable.getModel();
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
             String query = "select * from employee;";
@@ -49,7 +46,7 @@ public void clear() {
                 String address = rs.getString("address");
                 String phone = rs.getString("phone");
                 String uid = rs.getString("uid");
-                String pwd = rs.getString("passd");
+                String pwd = rs.getString("passwd");
                              
                 model.addRow(new Object[] {eid,ename,address,phone,uid,pwd});
             }
@@ -74,7 +71,7 @@ public void clear() {
         tf4 = new javax.swing.JTextField();
         tf6 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        SupplierTable = new javax.swing.JTable();
+        EmployeeTable = new javax.swing.JTable();
         deleteBtn = new javax.swing.JButton();
         clearBtn = new javax.swing.JButton();
         addBtn = new javax.swing.JButton();
@@ -140,9 +137,9 @@ public void clear() {
         });
         jPanel2.add(tf6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, 220, 30));
 
-        SupplierTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        SupplierTable.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        SupplierTable.setModel(new javax.swing.table.DefaultTableModel(
+        EmployeeTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        EmployeeTable.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        EmployeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -153,26 +150,22 @@ public void clear() {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                true, true, false, false, true, true
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
         });
-        SupplierTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        EmployeeTable.setColumnSelectionAllowed(true);
+        EmployeeTable.getTableHeader().setReorderingAllowed(false);
+        EmployeeTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SupplierTableMouseClicked(evt);
+                EmployeeTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(SupplierTable);
+        jScrollPane1.setViewportView(EmployeeTable);
+        EmployeeTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 610, 340));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 650, 340));
 
         deleteBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         deleteBtn.setText("DELETE");
@@ -292,15 +285,16 @@ public void clear() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editBtnMouseClicked
-        if(tf6.getText().isEmpty() || tf3.getText().isEmpty() || tf4.getText().isEmpty()) {
+        if(tf1.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing some info");
         }
         else {
             try {
                 Connection con = ConnectionProvider.getCon();
-                String query = "update employee set ename="+tf2.getText()+",address="+tf3.getText()+",phone="+Integer.parseInt(tf4.getText())+","
-                        + "uid="+tf5.getText()+",pwd="+tf6.getText()+" where sid="+Integer.parseInt(tf1.getText())+";";
                 Statement st = con.createStatement();
+                String query = "update employee set ename="+tf2.getText()+",address="+tf3.getText()+",phone="+Integer.parseInt(tf4.getText())+","
+                        + "uid="+tf5.getText()+",passwd="+tf6.getText()+" where eid="+Integer.parseInt(tf1.getText())+";";
+                
                 st.executeUpdate(query);
                 showData();
                 JOptionPane.showMessageDialog(this, "Employee updated");
@@ -316,9 +310,9 @@ public void clear() {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf6ActionPerformed
 
-    private void SupplierTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SupplierTableMouseClicked
-        DefaultTableModel model = (DefaultTableModel) SupplierTable.getModel();
-        int myIndex = SupplierTable.getSelectedRow();
+    private void EmployeeTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeTableMouseClicked
+        DefaultTableModel model = (DefaultTableModel) EmployeeTable.getModel();
+        int myIndex = EmployeeTable.getSelectedRow();
         tf1.setText(model.getValueAt(myIndex, 0).toString());
         tf2.setText(model.getValueAt(myIndex, 1).toString());
         tf3.setText(model.getValueAt(myIndex, 2).toString());
@@ -326,7 +320,7 @@ public void clear() {
         tf5.setText(model.getValueAt(myIndex, 4).toString());
         tf6.setText(model.getValueAt(myIndex, 5).toString());
 
-    }//GEN-LAST:event_SupplierTableMouseClicked
+    }//GEN-LAST:event_EmployeeTableMouseClicked
 
     private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
         if(tf1.getText().isEmpty()){
@@ -356,12 +350,11 @@ public void clear() {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         String eid = tf1.getText();
-        String ename = tf6.getText();
+        String ename = tf2.getText();
         String address = tf3.getText();
         String phone = tf4.getText();
         String uid = tf5.getText();
         String pwd = tf6.getText();
-
         try {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
@@ -372,14 +365,16 @@ public void clear() {
         }
         catch(Exception e) {
             JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
-        Products prod = new Products();
-        prod.setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+//        Products prod = new Products();
+//        prod.setVisible(true);
+//        this.setVisible(false);
+//        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_closeBtnMouseClicked
 
     private void tf2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf2ActionPerformed
@@ -426,7 +421,7 @@ public void clear() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable SupplierTable;
+    private javax.swing.JTable EmployeeTable;
     private javax.swing.JButton addBtn;
     private javax.swing.JButton clearBtn;
     private javax.swing.JPanel closeBtn;

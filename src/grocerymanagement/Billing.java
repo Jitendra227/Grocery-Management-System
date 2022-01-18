@@ -161,7 +161,7 @@ public class Billing extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Date");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, 40, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 70, 40, -1));
 
         billTable.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         billTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -222,7 +222,7 @@ public class Billing extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 0, 0));
         jLabel11.setText("MANAGE BILL");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, -1));
 
         addBtn.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         addBtn.setText("ADD To Bill");
