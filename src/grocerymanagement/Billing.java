@@ -1,17 +1,24 @@
 package grocerymanagement;
 import Connector.ConnectionProvider;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.sql.Connection;
+import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
+import java.util.Timer;
 
 
 public class Billing extends javax.swing.JFrame {
 
     String bid,cname,cphone;
+   
     public Billing() {
         initComponents();
         comboData();
@@ -20,6 +27,27 @@ public class Billing extends javax.swing.JFrame {
         tf6.setEditable(false);
         billGenerated.setEditable(false);
         billHeader();
+        //Date curDate = new Date();
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        LocalDateTime now = LocalDateTime.now();  
+        
+        dateTime.setText(dtf.format(now).toString());
+    }
+    public void time(){
+         dateTime.setText(DateFormat.getDateTimeInstance().format(new Date()));
+         Timer t = new Timer(500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              horloge.setText(
+                 DateFormat.getDateTimeInstance().format(new Date())
+              );
+            }
+         });
+         t.setRepeats(true);
+         t.setCoalesce(true);
+         t.setInitialDelay(0);
+         t.start();
     }
     
     public void billHeader(){
@@ -92,7 +120,7 @@ public class Billing extends javax.swing.JFrame {
         tf6 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tf7 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        dateTime = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         billTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -100,7 +128,7 @@ public class Billing extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        printBtn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         closeBtn = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -120,7 +148,6 @@ public class Billing extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1020, 720));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1045, 710));
         setResizable(false);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -159,9 +186,9 @@ public class Billing extends javax.swing.JFrame {
         tf7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel1.add(tf7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 150, 30));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Date");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 70, 40, -1));
+        dateTime.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dateTime.setText("Date");
+        jPanel1.add(dateTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 250, -1));
 
         billTable.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         billTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -225,26 +252,29 @@ public class Billing extends javax.swing.JFrame {
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, -1));
 
         addBtn.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        addBtn.setText("ADD To Bill");
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
+        addBtn.setText("  ADD To Bill");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, -1, -1));
+        jPanel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 160, 40));
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/del.png"))); // NOI18N
         jButton5.setText("Remove");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, -1, -1));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, 140, 40));
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        jButton6.setText("Print");
-        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+        printBtn.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        printBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/print.png"))); // NOI18N
+        printBtn.setText("Print");
+        printBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton6MouseClicked(evt);
+                printBtnMouseClicked(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 550, 90, 40));
+        jPanel1.add(printBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, 130, 50));
 
         jPanel4.setBackground(new java.awt.Color(23, 35, 51));
 
@@ -328,14 +358,15 @@ public class Billing extends javax.swing.JFrame {
         jLabel14.setText("Product Name");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, 20));
 
-        submitBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        submitBtn.setText("SUBMIT");
+        submitBtn.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        submitBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/submit.png"))); // NOI18N
+        submitBtn.setText("  SUBMIT");
         submitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 140, 40));
+        jPanel1.add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 160, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 720));
 
@@ -392,7 +423,7 @@ int summ=0;
         // TODO add your handling code here:
     }//GEN-LAST:event_tf4ActionPerformed
 
-    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+    private void printBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printBtnMouseClicked
  try {
      billGenerated.setText(billGenerated.getText()
             +"\n  =============================================================="
@@ -404,7 +435,7 @@ int summ=0;
  catch (Exception e) {
      e.printStackTrace();
 }
-    }//GEN-LAST:event_jButton6MouseClicked
+    }//GEN-LAST:event_printBtnMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         
@@ -465,8 +496,8 @@ int summ=0;
     private javax.swing.JTable billTable;
     private javax.swing.JComboBox<String> categorygBox;
     private javax.swing.JLabel closeBtn;
+    private javax.swing.JLabel dateTime;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -476,13 +507,13 @@ int summ=0;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton printBtn;
     private javax.swing.JButton submitBtn;
     private javax.swing.JTextField tf1;
     private javax.swing.JTextField tf2;

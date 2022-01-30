@@ -91,13 +91,14 @@ public class Supplier extends javax.swing.JFrame {
         jPanel2.add(tf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 220, 30));
 
         editBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        editBtn.setText("EDIT");
+        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit_btn.png"))); // NOI18N
+        editBtn.setText("  EDIT");
         editBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editBtnMouseClicked(evt);
             }
         });
-        jPanel2.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 530, 90, -1));
+        jPanel2.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 520, 120, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel2.setText("SUPPLIER INFO");
@@ -154,31 +155,34 @@ public class Supplier extends javax.swing.JFrame {
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 520, 340));
 
         deleteBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/del.png"))); // NOI18N
         deleteBtn.setText("DELETE");
         deleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 deleteBtnMouseClicked(evt);
             }
         });
-        jPanel2.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, 100, -1));
+        jPanel2.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, 130, 40));
 
         clearBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        clearBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/up.png"))); // NOI18N
         clearBtn.setText("CLEAR");
         clearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clearBtnMouseClicked(evt);
             }
         });
-        jPanel2.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 530, -1, -1));
+        jPanel2.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 520, 120, 40));
 
         addBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        addBtn.setText("ADD");
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/an.png"))); // NOI18N
+        addBtn.setText("   ADD");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 90, -1));
+        jPanel2.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 110, 40));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel6.setText("SELLER ID");
@@ -327,8 +331,9 @@ public class Supplier extends javax.swing.JFrame {
         else {
             try {
                 Connection con = ConnectionProvider.getCon();
-                String query = "update supplier set sname="+tf2.getText()+",phone="+Integer.parseInt(tf3.getText())+",address="+tf4.getText()+" where sid="+Integer.parseInt(tf1.getText())+";";
                 Statement st = con.createStatement();
+                String query = "update supplier set sname='"+tf2.getText()+"',phone="+Integer.parseInt(tf3.getText())+", address='"+tf4.getText().toString()+"' where sid="+Integer.parseInt(tf1.getText())+";";
+                
                 st.executeUpdate(query);
                 showData();
                 JOptionPane.showMessageDialog(this, "Seller updates");

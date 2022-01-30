@@ -102,13 +102,14 @@ public void clear() {
         jPanel2.add(tf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 220, 30));
 
         editBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        editBtn.setText("EDIT");
+        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit_btn.png"))); // NOI18N
+        editBtn.setText("  EDIT");
         editBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editBtnMouseClicked(evt);
             }
         });
-        jPanel2.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 550, 90, -1));
+        jPanel2.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 530, 120, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel2.setText("EMPLOYEE INFO");
@@ -168,31 +169,34 @@ public void clear() {
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 650, 340));
 
         deleteBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        deleteBtn.setText("DELETE");
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/del.png"))); // NOI18N
+        deleteBtn.setText("  DELETE");
         deleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 deleteBtnMouseClicked(evt);
             }
         });
-        jPanel2.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 550, 100, -1));
+        jPanel2.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 530, 140, 40));
 
         clearBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        clearBtn.setText("CLEAR");
+        clearBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/up.png"))); // NOI18N
+        clearBtn.setText("  CLEAR");
         clearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clearBtnMouseClicked(evt);
             }
         });
-        jPanel2.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 550, -1, -1));
+        jPanel2.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 530, 130, 40));
 
         addBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        addBtn.setText("ADD");
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add_prsn.png"))); // NOI18N
+        addBtn.setText("  ADD");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 550, 90, -1));
+        jPanel2.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 110, 40));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel6.setText("Employee ID");
