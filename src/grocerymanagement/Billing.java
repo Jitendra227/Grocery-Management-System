@@ -1,4 +1,5 @@
 package grocerymanagement;
+
 import Connector.ConnectionProvider;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -14,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 import java.util.Timer;
 
-
 public class Billing extends javax.swing.JFrame {
 
     String bid,cname,cphone;
@@ -27,27 +27,11 @@ public class Billing extends javax.swing.JFrame {
         tf6.setEditable(false);
         billGenerated.setEditable(false);
         billHeader();
-        //Date curDate = new Date();
         
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
         LocalDateTime now = LocalDateTime.now();  
         
         dateTime.setText(dtf.format(now).toString());
-    }
-    public void time(){
-         dateTime.setText(DateFormat.getDateTimeInstance().format(new Date()));
-         Timer t = new Timer(500, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              horloge.setText(
-                 DateFormat.getDateTimeInstance().format(new Date())
-              );
-            }
-         });
-         t.setRepeats(true);
-         t.setCoalesce(true);
-         t.setInitialDelay(0);
-         t.start();
     }
     
     public void billHeader(){
@@ -462,7 +446,6 @@ int summ=0;
             JOptionPane.showMessageDialog(this, e);
         }
     }//GEN-LAST:event_submitBtnActionPerformed
-
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -480,9 +463,7 @@ int summ=0;
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Billing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Billing().setVisible(true);
