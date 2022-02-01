@@ -352,6 +352,7 @@ public class Products extends javax.swing.JFrame {
 
         logoutBtn.setFont(new java.awt.Font("Arial Black", 1, 20)); // NOI18N
         logoutBtn.setForeground(new java.awt.Color(255, 255, 255));
+        logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Logout.jpg"))); // NOI18N
         logoutBtn.setText("   LOG OUT");
         logoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

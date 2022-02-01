@@ -166,14 +166,14 @@ public class Supplier extends javax.swing.JFrame {
         jPanel2.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 520, 120, 40));
 
         addBtn.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/an.png"))); // NOI18N
-        addBtn.setText("   ADD");
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
+        addBtn.setText("  ADD");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 110, 40));
+        jPanel2.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 120, 40));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel6.setText("SELLER ID");
@@ -323,7 +323,7 @@ public class Supplier extends javax.swing.JFrame {
             try {
                 Connection con = ConnectionProvider.getCon();
                 Statement st = con.createStatement();
-                String query = "update supplier set sname='"+tf2.getText()+"',phone="+Integer.parseInt(tf3.getText())+", address='"+tf4.getText().toString()+"' where sid="+Integer.parseInt(tf1.getText())+";";
+                String query = "update supplier set sname='"+tf2.getText()+"',phone="+tf3.getText()+", address='"+tf4.getText().toString()+"' where sid="+Integer.parseInt(tf1.getText())+";";
                 
                 st.executeUpdate(query);
                 showData();

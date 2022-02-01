@@ -14,7 +14,7 @@ public class Employee extends javax.swing.JFrame {
         initComponents();
         showData();
     }
-public void clear() {
+    public void clear() {
         tf1.setText("");
         tf2.setText("");
         tf3.setText("");
@@ -287,8 +287,8 @@ public void clear() {
             try {
                 Connection con = ConnectionProvider.getCon();
                 Statement st = con.createStatement();
-                String query = "update employee set ename="+tf2.getText()+",address="+tf3.getText()+",phone="+Integer.parseInt(tf4.getText())+","
-                        + "uid="+tf5.getText()+",passwd="+tf6.getText()+" where eid="+Integer.parseInt(tf1.getText())+";";
+                String query = "update employee set ename='"+tf2.getText()+"',address='"+tf3.getText()+"',phone='"+tf4.getText()+"',"
+                        + "uid='"+tf5.getText()+"',passwd='"+tf6.getText()+"' where eid="+Integer.parseInt(tf1.getText())+";";
                 
                 st.executeUpdate(query);
                 showData();

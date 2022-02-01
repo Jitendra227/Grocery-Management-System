@@ -1,23 +1,28 @@
 package grocerymanagement;
 
 import Connector.ConnectionProvider;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
-import java.util.Timer;
+import javax.swing.Timer;
+
 
 public class Billing extends javax.swing.JFrame {
 
-    String bid,cname,cphone;
+    public String bid,cname,cphone;
    
     public Billing() {
         initComponents();
@@ -26,21 +31,23 @@ public class Billing extends javax.swing.JFrame {
         tf5.setEditable(false);
         tf6.setEditable(false);
         billGenerated.setEditable(false);
+
+
+        SimpleDateFormat dtf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+        Date date = new Date();   
+        
+        dateTime.setText(dtf.format(date));
+        
         billHeader();
-        
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-        LocalDateTime now = LocalDateTime.now();  
-        
-        dateTime.setText(dtf.format(now).toString());
     }
-    
+       
     public void billHeader(){
         billGenerated.setText("\n\t\t\tGROCERY MGMT SYSTEM\t\t\n"
                         +"\t\t\t11'TH MAIN, BANGALORE\n"
                         +"\t\t\tPIN: 560071\n"
                         +"\t\t\tPHONE: 080-1234567"
                         +"\n  ==============================================================\n"+
-                        "  BILL NO.        : "+bid+"\n"+"  Customer Name  : "+cname+"\n"+"  Phone Number  :"+cphone+"\n"+"  Purchase Date\n"
+                        "  BILL NO.      : "+bid+"\n"+"  Customer Name : "+cname+"\n"+"  Phone Number  : "+cphone+"\n"+"  Purchase Date : "+dateTime.getText()+"\n"
                         +"  ===============================================================\n"
                         +"  NUM   PRODUCT \t PRICE       QUANTITY        TOTAL"
                         +"\n  ===============================================================\n");
@@ -108,13 +115,15 @@ public class Billing extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         billTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         printBtn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         closeBtn = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        logOutBtn = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         tf3 = new javax.swing.JTextField();
@@ -161,14 +170,14 @@ public class Billing extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 70, 20));
 
         tf6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(tf6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 148, -1));
+        jPanel1.add(tf6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 148, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Quantity");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, 60, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 60, -1));
 
         tf7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(tf7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 150, 30));
+        jPanel1.add(tf7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 150, 30));
 
         dateTime.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         dateTime.setText("Date");
@@ -215,21 +224,6 @@ public class Billing extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 731));
 
-        jPanel3.setBackground(new java.awt.Color(23, 35, 51));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 0, -1, -1));
-
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 0, 0));
         jLabel11.setText("MANAGE BILL");
@@ -243,12 +237,12 @@ public class Billing extends javax.swing.JFrame {
                 addBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 160, 40));
+        jPanel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, 160, 40));
 
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/del.png"))); // NOI18N
         jButton5.setText("Remove");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, 140, 40));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 140, 40));
 
         printBtn.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         printBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/print.png"))); // NOI18N
@@ -258,9 +252,10 @@ public class Billing extends javax.swing.JFrame {
                 printBtnMouseClicked(evt);
             }
         });
-        jPanel1.add(printBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, 130, 50));
+        jPanel1.add(printBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 570, 130, 50));
 
         jPanel4.setBackground(new java.awt.Color(23, 35, 51));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Exit_Btn.jpg"))); // NOI18N
         closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -268,28 +263,61 @@ public class Billing extends javax.swing.JFrame {
                 closeBtnMouseClicked(evt);
             }
         });
+        jPanel4.add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 0, -1, 46));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        jPanel6.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jPanel5.setBackground(new java.awt.Color(0, 204, 255));
+        jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        logOutBtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        logOutBtn.setForeground(new java.awt.Color(255, 0, 0));
+        logOutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Logout.jpg"))); // NOI18N
+        logOutBtn.setText("  LOG OUT !");
+        logOutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logOutBtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 135, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(logOutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 34, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(logOutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 43, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(closeBtn)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+
+        jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 40));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("PRICE");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, 20));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, 20));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setText("Customer Phone");
@@ -350,7 +378,7 @@ public class Billing extends javax.swing.JFrame {
                 submitBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 160, 40));
+        jPanel1.add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 160, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 720));
 
@@ -413,6 +441,16 @@ int summ=0;
             +"\n  =============================================================="
             +"\n  total:     \t\t\t\t\t\t"+tot+""
             +"\n  ==============================================================\n");
+     try {
+                Connection con = ConnectionProvider.getCon();
+                String query = "update Billing set total='"+tot+"' where billno = "+Integer.parseInt(tf1.getText())+";";
+                Statement st = con.createStatement();
+                st.executeUpdate(query);
+            }
+            catch(SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this,e);
+            }
     billGenerated.print();
     
     } 
@@ -429,11 +467,13 @@ int summ=0;
         bid = tf1.getText();
         cname = tf2.getText();
         cphone = tf3.getText();
+        String bDate = java.time.LocalDate.now().toString();
+        System.out.println(bDate);
         
         try {
                 Connection con = ConnectionProvider.getCon();
                 Statement st = con.createStatement();
-                String query = "insert into Billing values('"+Integer.parseInt(bid)+"','"+cname+"','"+Integer.parseInt(cphone)+"');";
+                String query = "insert into Billing(billno,custName,custphone,date) values('"+Integer.parseInt(bid)+"','"+cname+"','"+cphone+"','"+bDate+"');";
                 st.executeUpdate(query);
                 con.close();
                 billHeader();
@@ -446,6 +486,13 @@ int summ=0;
             JOptionPane.showMessageDialog(this, e);
         }
     }//GEN-LAST:event_submitBtnActionPerformed
+
+    private void logOutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutBtnMouseClicked
+        LoginPage lp = new LoginPage();
+        lp.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_logOutBtnMouseClicked
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -490,10 +537,12 @@ int summ=0;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel logOutBtn;
     private javax.swing.JButton printBtn;
     private javax.swing.JButton submitBtn;
     private javax.swing.JTextField tf1;
