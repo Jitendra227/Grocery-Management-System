@@ -31,9 +31,10 @@ public class Invoice extends javax.swing.JFrame {
                 String bill = rs.getString("billno");
                 String customer = rs.getString("custName");
                 String phone = rs.getString("custPhone");
- //               String pcat = rs.getString("category");
+                String pdate = rs.getString("date");
+                String totalamt = rs.getString("total");
                 
-                model.addRow(new Object[] {bill,customer,phone});
+                model.addRow(new Object[] {bill,customer,phone,pdate,totalamt});
             }
         }
         catch(Exception e) {
@@ -95,6 +96,9 @@ public class Invoice extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        invoiceTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        invoiceTable.setGridColor(new java.awt.Color(0, 0, 0));
+        invoiceTable.setRowMargin(2);
         invoiceTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 invoiceTableMouseClicked(evt);
