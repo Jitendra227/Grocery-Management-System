@@ -168,9 +168,16 @@ public class Category extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         catTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
@@ -458,7 +465,7 @@ public class Category extends javax.swing.JFrame {
         else {
             try {
                 Connection con = ConnectionProvider.getCon();
-                String query = "update categories set cname="+tf2.getText()+",description="+tf3.getText()+" where cid = "+Integer.parseInt(tf1.getText())+";";
+                String query = "update categories set cname='"+tf2.getText()+"',description='"+tf3.getText()+"' where cid = '"+Integer.parseInt(tf1.getText())+"';";
                 Statement st = con.createStatement();
                 st.executeUpdate(query);
                 showData();
